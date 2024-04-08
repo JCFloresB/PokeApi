@@ -1,4 +1,6 @@
 [versions]
+com-google-dagger = "2.50"
+androidx-hilt-dagger = "1.2.0"
 agp = "8.3.1"
 kotlin = "1.9.0"
 coreKtx = "1.12.0"
@@ -25,7 +27,34 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+androidx-hilt-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt-dagger" }
+
+com-google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "com-google-dagger" }
+com-google-dagger-hilt-androidx-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt-dagger" } # androidx.hilt:hilt-compiler:1.1.0
+com-google-dagger-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "com-google-dagger" }  #com.google.dagger:hilt-android-compiler:2.44
+com-google-dagger-hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "com-google-dagger" }
+
+[bundles]
+compilers-kapt-hilt = [
+    "com-google-dagger-hilt-android-compiler",
+    "com-google-dagger-hilt-androidx-compiler"
+]
+
+layer-ui = [
+    "androidx-core-ktx",
+    "androidx-lifecycle-runtime-ktx",
+    "androidx-activity-compose",
+    "androidx-ui",
+    "androidx-ui-graphics",
+    "androidx-ui-tooling-preview",
+    "androidx-material3",
+    "com-google-dagger-hilt-android",
+    "androidx-hilt-hilt-navigation-compose"
+]
+#implementation(platform(libs.androidx.compose.bom))
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "com-google-dagger" }
 
