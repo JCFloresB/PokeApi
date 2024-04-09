@@ -1,9 +1,19 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     kotlin("kapt")
     alias(libs.plugins.com.google.dagger.hilt.android)
 }
+
+val prop = Properties().apply {
+    load(FileInputStream(File(rootProject.rootDir, "ExampleSecretKeys.properties")))
+}
+val baseUrl: String = prop.getProperty("BASE_URL_API")
+println("Property: $baseUrl")
 
 android {
     namespace = BuildVersion.environment.applicationId
@@ -20,6 +30,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildFeatures {
+            buildConfig = true
+        }
+
+        buildConfigField("String", "BASE_URL", baseUrl)
     }
 
     buildTypes {
@@ -55,6 +71,7 @@ dependencies {
 
     implementation(libs.bundles.layer.ui)
     implementation(platform(libs.androidx.compose.bom))
+
     kapt(libs.bundles.compilers.kapt.hilt)
 
     testImplementation(libs.junit)

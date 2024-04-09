@@ -11,10 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.poqueapi.ui.theme.PoqueApiTheme
+import timber.log.Timber
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.d("Init Activity")
+        Timber.d("Base URL: ${BuildConfig.BASE_URL}")
         setContent {
             PoqueApiTheme {
                 // A surface container using the 'background' color from the theme
