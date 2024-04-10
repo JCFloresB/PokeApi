@@ -72,7 +72,9 @@ dependencies {
     implementation(libs.bundles.layer.ui)
     implementation(platform(libs.androidx.compose.bom))
 
+
     kapt(libs.bundles.compilers.kapt.hilt)
+    kapt(libs.bundles.compilers.kapt.room)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

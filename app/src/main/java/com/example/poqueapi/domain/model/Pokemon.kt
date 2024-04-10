@@ -1,6 +1,10 @@
 package com.example.poqueapi.domain.model
 
 data class Pokemon(
-    val name: String,
-    val url: String,
+    val pokemonId: Int,
+    val pokemonName: String,
+    val pokemonUrlImage: String,
+    val pokemonHeight: Int,
+    val pokemonWeight: Int,
+    val pokemonTypeList: MutableList<String>
 )

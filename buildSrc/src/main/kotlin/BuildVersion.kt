@@ -13,4 +13,5 @@ object BuildVersion {
         const val appVersionName = "${majorVersion}.${minorVersion}.$bugFixVetsion"
         //endregion
     }
+
 }
