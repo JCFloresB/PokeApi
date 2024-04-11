@@ -46,13 +46,12 @@ class DataModule {
         httpClient.addInterceptor(logging)
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
-            .client(httpClient.build())
+//            .client(httpClient.build())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PokemonApi::class.java)
     }
 
-    @OptIn(ExperimentalPagingApi::class)
     @Provides
     @Singleton
     fun providePokemonPager(

@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,6 +21,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.poqueapi.domain.model.Pokemon
 import com.example.poqueapi.presentation.pokemon.list.components.PokemonItem
+import timber.log.Timber
 
 @Composable
 fun PokemonListScreen(
@@ -39,6 +40,10 @@ fun PokemonListScreen(
         }
     }
 
+    PokemonListContent(
+        pokemonPagingItems = pokemonPagingItems,
+        navigateToDetail = navigateToDetail,
+    )
 
 }
 
@@ -51,9 +56,9 @@ fun PokemonListContent(
         if (pokemonPagingItems.loadState.refresh is LoadState.Loading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         } else {
-            LazyColumn(
+            LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                columns = GridCells.Fixed(3)
             ) {
                 items(
                     count = pokemonPagingItems.itemCount,
@@ -64,15 +69,11 @@ fun PokemonListContent(
                         PokemonItem(
                             pokemon,
                             onClickItem = {
+                                Timber.d("Click en item de pokemon: ${pokemon.pokemonName}")
                                 navigateToDetail(pokemon.pokemonId)
                             },
                             modifier = Modifier.fillMaxWidth(),
                         )
-//                        Divider(
-//                            color = MaterialTheme.colorScheme.secondary,
-//                            thickness = 0.2.dp,
-//                            modifier = Modifier.padding(horizontal = 20.dp),
-//                        )
                     }
                 }
                 item {

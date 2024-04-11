@@ -20,12 +20,15 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.get
+import androidx.navigation.navArgument
 import com.example.poqueapi.presentation.custom.TopBar
+import com.example.poqueapi.presentation.pokemon.detail.PokemonDetailScreen
 import com.example.poqueapi.presentation.pokemon.list.PokemonListScreen
 import com.example.poqueapi.presentation.theme.PoqueApiTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,7 +57,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable(
                             "pokemon-list",
-                            label = "Gotta Catch 'Em All!",
+                            label = "¡Atrápalos todos!",
                         ) {
                             PokemonListScreen(
                                 navigateToDetail = { id ->
@@ -62,6 +65,13 @@ class MainActivity : ComponentActivity() {
                                 },
                                 snackbarHostState = snackbarHostState,
                             )
+                        }
+                        composable(
+                            "pokemon/{id}",
+                            label = "Pokemon",
+                            arguments = listOf(navArgument("id") { type = NavType.IntType }),
+                        ) {
+                            PokemonDetailScreen(snackbarHostState = snackbarHostState)
                         }
                     }
                 }

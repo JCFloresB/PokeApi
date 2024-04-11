@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.poqueapi.domain.model.Pokemon
 import com.example.poqueapi.domain.model.Result
 import com.example.poqueapi.domain.usecases.GetPokemon
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
+@HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getPokemonDetailUseCase: GetPokemon

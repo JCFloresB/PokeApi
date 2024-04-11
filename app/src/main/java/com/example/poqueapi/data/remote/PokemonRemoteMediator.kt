@@ -1,6 +1,5 @@
 package com.example.poqueapi.data.remote
 
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
@@ -13,7 +12,6 @@ import com.example.poqueapi.utils.UrlUtils
 import timber.log.Timber
 import javax.inject.Inject
 
-@OptIn(ExperimentalPagingApi::class)
 class PokemonRemoteMediator @Inject constructor(
     private val pokemonDatabase: PokemonDatabase,
     private val pokemonApi: PokemonApi
@@ -26,9 +24,16 @@ class PokemonRemoteMediator @Inject constructor(
     ): MediatorResult {
         return try {
             val offset = when (loadType) {
-                LoadType.REFRESH -> 0
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+                LoadType.REFRESH -> {
+                    Timber.d("PokemonRemoteMediator REFRESH")
+                    0
+                }
+                LoadType.PREPEND -> {
+                    Timber.d("PokemonRemoteMediator PREPEND")
+                    return MediatorResult.Success(endOfPaginationReached = true)
+                }
                 LoadType.APPEND -> {
+                    Timber.d("PokemonRemoteMediator APPEND")
                     val remoteKey = pokemonDatabase.remoteKeyDao.getRemoteKeyById(remoteKeyId)
                     if (remoteKey == null || remoteKey.nextOffset == 0) {
                         return MediatorResult.Success(endOfPaginationReached = true)
@@ -73,8 +78,11 @@ class PokemonRemoteMediator @Inject constructor(
                     )
                 )
             }
-            MediatorResult.Success(endOfPaginationReached = pokemonList.size == state.config.pageSize)
+            Timber.d("Paginacion final pokemonListSize: ${pokemonList.size}, state page Size: ${state.config.pageSize}")
+            MediatorResult.Success(nextOffsetResponse == 0)
+//            MediatorResult.Success(endOfPaginationReached = pokemonList.size == state.config.pageSize)
         } catch (e: Exception) {
+            Timber.e("Error en paginación: ${e.message}")
             MediatorResult.Error(e)
         }
     }
