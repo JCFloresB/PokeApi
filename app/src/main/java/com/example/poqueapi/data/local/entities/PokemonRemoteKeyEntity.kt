@@ -6,7 +6,6 @@ import com.example.poqueapi.utils.Constants
 
 @Entity(tableName = Constants.POKEMON_KEYS_TABLE)
 data class PokemonRemoteKeyEntity(
-    @PrimaryKey val id: Int,
-    val prevKey: Int?,
-    val nextKey: Int?
+    @PrimaryKey val id: String,
+    val nextOffset: Int
 )

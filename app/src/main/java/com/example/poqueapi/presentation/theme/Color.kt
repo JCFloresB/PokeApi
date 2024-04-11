@@ -1,4 +1,4 @@
-package com.example.poqueapi.ui.theme
+package com.example.poqueapi.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

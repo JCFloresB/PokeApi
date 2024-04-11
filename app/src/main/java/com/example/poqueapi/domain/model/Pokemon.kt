@@ -6,5 +6,6 @@ data class Pokemon(
     val pokemonUrlImage: String,
     val pokemonHeight: Int,
     val pokemonWeight: Int,
-    val pokemonTypeList: MutableList<String>
+    val pokemonTypeList: List<String>
+//    val pokemonTypeList: MutableList<String>
 )

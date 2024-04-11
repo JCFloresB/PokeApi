@@ -5,7 +5,8 @@ import java.util.*
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    kotlin("kapt")
+//    kotlin("kapt")
+    alias(libs.plugins.com.google.devtools.ksp)
     alias(libs.plugins.com.google.dagger.hilt.android)
 }
 
@@ -16,15 +17,15 @@ val baseUrl: String = prop.getProperty("BASE_URL_API")
 println("Property: $baseUrl")
 
 android {
-    namespace = BuildVersion.environment.applicationId
-    compileSdk = BuildVersion.environment.compileSdkVersion
+    namespace = BuildVersion.Environment.APPLICATION_ID
+    compileSdk = BuildVersion.Environment.COMPILE_SDK_VERSION
 
     defaultConfig {
-        applicationId = BuildVersion.environment.applicationId
-        minSdk = BuildVersion.environment.minSdkVersion
-        targetSdk = BuildVersion.environment.targetSdkVersion
-        versionCode = BuildVersion.environment.appVersionCode
-        versionName = BuildVersion.environment.appVersionName
+        applicationId = BuildVersion.Environment.APPLICATION_ID
+        minSdk = BuildVersion.Environment.MIN_SDK_VERSION
+        targetSdk = BuildVersion.Environment.TARGET_SDK_VERSION
+        versionCode = BuildVersion.Environment.APP_VERSION_CODE
+        versionName = BuildVersion.Environment.APP_VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -72,9 +73,8 @@ dependencies {
     implementation(libs.bundles.layer.ui)
     implementation(platform(libs.androidx.compose.bom))
 
-
-    kapt(libs.bundles.compilers.kapt.hilt)
-    kapt(libs.bundles.compilers.kapt.room)
+    ksp(libs.bundles.compilers.kapt.hilt)
+    ksp(libs.bundles.compilers.kapt.room)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

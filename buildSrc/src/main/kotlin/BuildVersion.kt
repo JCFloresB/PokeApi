@@ -1,16 +1,16 @@
 object BuildVersion {
-    object environment {
+    object Environment {
         //region App
-        private const val majorVersion = 1
-        private const val minorVersion = 0
-        private const val bugFixVetsion = 0
+        private const val MAJOR_VERSION = 1
+        private const val MINOR_VERSION = 0
+        private const val BUG_FIX_VERSION = 0
 
-        const val minSdkVersion = 23
-        const val compileSdkVersion = 34
-        const val targetSdkVersion = 34
-        const val applicationId = "com.example.poqueapi"
-        const val appVersionCode = majorVersion * 1000 + minorVersion * 100 + bugFixVetsion
-        const val appVersionName = "${majorVersion}.${minorVersion}.$bugFixVetsion"
+        const val MIN_SDK_VERSION = 23
+        const val COMPILE_SDK_VERSION = 34
+        const val TARGET_SDK_VERSION = 34
+        const val APPLICATION_ID = "com.example.poqueapi"
+        const val APP_VERSION_CODE = MAJOR_VERSION * 1000 + MINOR_VERSION * 100 + BUG_FIX_VERSION
+        const val APP_VERSION_NAME = "${MAJOR_VERSION}.${MINOR_VERSION}.$BUG_FIX_VERSION"
         //endregion
     }
 

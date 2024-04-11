@@ -18,6 +18,6 @@ data class Versions(
     val generationVi: GenerationVi,
     @SerializedName("generation-vii")
     val generationVii: GenerationVii,
-    @SerializedName("generation-viii")
-    val generationViii: GenerationViii
+   /* @SerializedName("generation-viii")
+    val generationViii: GenerationViii*/
 )

@@ -11,5 +11,5 @@ data class PokemonEntity(
     val pokemonUrlImage: String,
     val pokemonHeight: Int,
     val pokemonWeight: Int,
-    val pokemonTypeList: MutableList<String>
+    val pokemonTypeList: List<String>
 )

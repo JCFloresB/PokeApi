@@ -1,4 +1,4 @@
-package com.example.poqueapi.ui.theme
+package com.example.poqueapi.presentation.theme
 
 import android.app.Activity
 import android.os.Build
