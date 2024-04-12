@@ -11,15 +11,19 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.example.poqueapi.domain.model.Pokemon
+import com.example.poqueapi.domain.model.Result
 import com.example.poqueapi.presentation.pokemon.list.components.PokemonItem
 import timber.log.Timber
 
@@ -31,6 +35,7 @@ fun PokemonListScreen(
 
     val viewModel = hiltViewModel<PokemonListViewModel>()
     val pokemonPagingItems = viewModel.pokemonPagingDataFlow.collectAsLazyPagingItems()
+    val favorite by viewModel.isFavoriteStateFlow.collectAsStateWithLifecycle()
 
     if (pokemonPagingItems.loadState.refresh is LoadState.Error) {
         LaunchedEffect(key1 = snackbarHostState) {
@@ -39,10 +44,19 @@ fun PokemonListScreen(
             )
         }
     }
+    when(favorite) {
+        is Result.Error -> {
+            Timber.e("Error: ${(favorite
+                    as Result.Error<Any>).error}")
+        }
+        is Result.Loading -> Timber.i("Loading")
+        is Result.Success -> Timber.d("Se guardo como favorito: ${favorite.data}")
+    }
 
     PokemonListContent(
         pokemonPagingItems = pokemonPagingItems,
         navigateToDetail = navigateToDetail,
+        viewModel
     )
 
 }
@@ -51,6 +65,7 @@ fun PokemonListScreen(
 fun PokemonListContent(
     pokemonPagingItems: LazyPagingItems<Pokemon>,
     navigateToDetail: (Int) -> Unit,
+    viewModel: PokemonListViewModel
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (pokemonPagingItems.loadState.refresh is LoadState.Loading) {
@@ -71,6 +86,13 @@ fun PokemonListContent(
                             onClickItem = {
                                 Timber.d("Click en item de pokemon: ${pokemon.pokemonName}")
                                 navigateToDetail(pokemon.pokemonId)
+                            },
+                            onClickFavoriteItem = {
+                                Timber.d("Click en item de pokemon favorito: ${pokemon.pokemonName}")
+                                viewModel.modifyFavoriteValue(
+                                    pokemonId = pokemon.pokemonId,
+                                    isFavorite = !pokemon.isFavorite
+                                )
                             },
                             modifier = Modifier.fillMaxWidth(),
                         )

@@ -11,7 +11,8 @@ fun PokemonEntity.toPokemon() = Pokemon(
     pokemonUrlImage = pokemonUrlImage,
     pokemonHeight = pokemonHeight,
     pokemonWeight = pokemonWeight,
-    pokemonTypeList = pokemonTypeList
+    pokemonTypeList = pokemonTypeList,
+    isFavorite = isFavorite,
 )
 
 fun Pokemon.toPokemonEntity() = PokemonEntity(
@@ -20,8 +21,8 @@ fun Pokemon.toPokemonEntity() = PokemonEntity(
     pokemonUrlImage = pokemonUrlImage,
     pokemonHeight = pokemonHeight,
     pokemonWeight = pokemonWeight,
-    pokemonTypeList = emptyList<String>()
-//    pokemonTypeList = pokemonTypeList
+    pokemonTypeList = emptyList<String>(),
+    isFavorite = isFavorite
 )
 
 fun PokemonDetailResponse.toPokemon() = Pokemon(
@@ -30,6 +31,6 @@ fun PokemonDetailResponse.toPokemon() = Pokemon(
     pokemonUrlImage = UrlUtils.getImageUrl(sprites),
     pokemonHeight = height,
     pokemonWeight = weight,
-    pokemonTypeList = types.map { it.type.name } ?: emptyList()
-//    pokemonTypeList = UrlUtils.getStringTypes(types)
+    pokemonTypeList = types.map { it.type.name } ?: emptyList(),
+    isFavorite = false,
 )

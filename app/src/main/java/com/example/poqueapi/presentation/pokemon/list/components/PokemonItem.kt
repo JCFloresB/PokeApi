@@ -5,11 +5,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,42 +43,44 @@ import com.example.poqueapi.utils.getNameInitials
 fun PokemonItem(
     pokemon: Pokemon,
     onClickItem: () -> Unit,
+    onClickFavoriteItem: () -> Unit,
     modifier: Modifier = Modifier
-    ) {
+) {
     Column(modifier = modifier
         .clickable { onClickItem() }
         .padding(all = 4.dp)
         .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+    ) {
         PokemonImage(pokemon = pokemon)
-        /*if (pokemon.pokemonUrlImage.isNullOrBlank()){
-            Text(
-                text = pokemon.pokemonName.getNameInitials(),
-//                text = getInitials(pokemon.pokemonName),
-                color = Color.White,
-                fontSize = 50.sp,
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(Color(0xFF8998BA))
-            )
-        } else {
-            AsyncImage(
-                model = pokemon.pokemonUrlImage,
-                contentDescription = "Imagen principal de pokemon",
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(Color(0xFF8998BA)),
-                contentScale = ContentScale.Crop,
-                placeholder = painterResource(R.drawable.image_placeholder_icon),
-            )
-        }*/
 
-        Text(
-            text = pokemon.pokemonName,
-            Modifier.padding(4.dp),
-            fontSize = 16.sp
-        )
+        Row {
+            Text(
+                text = pokemon.pokemonName,
+                Modifier.padding(4.dp),
+                fontSize = 16.sp
+            )
+            if (pokemon.isFavorite) {
+                Icon(
+                    Icons.Filled.Favorite,
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+                        onClickFavoriteItem()
+                    },
+                    tint = Color.Red
+                )
+            } else {
+                Icon(
+                    Icons.Filled.FavoriteBorder,
+                    contentDescription = null,
+                    modifier = Modifier.clickable {
+                        onClickFavoriteItem()
+                    },
+                    tint = Color.Red
+                )
+            }
+
+        }
     }
 }
 
@@ -95,7 +102,8 @@ fun PokemonImage(pokemon: Pokemon) {
         when (painter.state) {
             is AsyncImagePainter.State.Loading -> {
                 CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier
+                        .align(Alignment.Center)
                         .padding(26.dp)
                 )
             }
@@ -115,7 +123,8 @@ fun PokemonImage(pokemon: Pokemon) {
                 Image(
                     painter = painter,
                     contentDescription = null,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier
+                        .align(Alignment.Center)
                         .padding(2.dp)
                 )
             }
@@ -134,8 +143,10 @@ fun PokemonItemPreview() {
                 pokemonUrlImage = "",
                 pokemonWeight = 150,
                 pokemonHeight = 100,
-                pokemonTypeList = mutableListOf("grass", "poisson")
-            ), onClickItem = {  })
+                pokemonTypeList = mutableListOf("grass", "poisson"),
+                isFavorite = false
+            ), onClickItem = { },
+                onClickFavoriteItem = { })
         }
     }
 }

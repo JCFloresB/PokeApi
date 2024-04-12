@@ -45,8 +45,8 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-hilt-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt-dagger" }
 
 com-google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "com-google-dagger" }
-com-google-dagger-hilt-androidx-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt-dagger" } # androidx.hilt:hilt-compiler:1.1.0
-com-google-dagger-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "com-google-dagger" }  #com.google.dagger:hilt-android-compiler:2.44
+com-google-dagger-hilt-androidx-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt-dagger" }
+com-google-dagger-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "com-google-dagger" }
 com-google-dagger-hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "com-google-dagger" }
 
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
@@ -83,7 +83,7 @@ compilers-kapt-room = [
 
 layer-ui = [
     "androidx-core-ktx",
-    "androidx-lifecycle-runtime-ktx",
+#    "androidx-lifecycle-runtime-ktx",
     "androidx-activity-compose",
     "androidx-navigation-compose",
     "androidx-ui",
@@ -97,15 +97,13 @@ layer-ui = [
     "converter-gson",
     "logging-interceptor",
     "gson",
-#    "room-runtime",
     "room",
     "room-paging",
     "androidx-paging-compose",
     "androidx-paging-runtime-ktx",
     "coil-compose",
     "kotlinx-serialization-json",
-#    "coil-gif",
-#    "coil-svg",
+    "androidx-lifecycle-runtime-compose",
 ]
 
 [plugins]

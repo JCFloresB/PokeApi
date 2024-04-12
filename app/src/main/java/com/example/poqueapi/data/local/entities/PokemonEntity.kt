@@ -11,5 +11,6 @@ data class PokemonEntity(
     val pokemonUrlImage: String,
     val pokemonHeight: Int,
     val pokemonWeight: Int,
-    val pokemonTypeList: List<String>
+    val pokemonTypeList: List<String>,
+    val isFavorite: Boolean,
 )

@@ -14,6 +14,7 @@ import com.example.poqueapi.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import javax.inject.Inject
 
 class PokemonRepositoryImp @Inject constructor(
@@ -33,11 +34,22 @@ class PokemonRepositoryImp @Inject constructor(
 
         try {
             // MAKE API CALL & INSERT IT TO DATABASE & EMIT IT
-            val remoteData = pokemonApi.getPokemonDetailById(id).toPokemon()
-            pokemonDatabase.pokemonDao.insert(remoteData.toPokemonEntity())
-            emit(Result.Success(remoteData))
+            /*val remoteData = pokemonApi.getPokemonDetailById(id).toPokemon()
+            pokemonDatabase.pokemonDao.insert(remoteData.toPokemonEntity())*/
+            emit(Result.Success(localData!!))
         } catch (e: Exception) {
             emit(Result.Error(error = e.message.toString(), data = localData))
+        }
+    }
+
+    override fun isFavoritePokemon(id: Int, isFavorite: Boolean): Flow<Result<Any>> = flow {
+        try {
+            Timber.d("favoritos repository")
+            pokemonDatabase.pokemonDao.markFavorites(id, isFavorite)
+            emit(Result.Success(id))
+        } catch (e: Exception) {
+            Timber.d("favoritos repository Error")
+            emit(Result.Error(e.message ?: "Ocurrio un error al modificar"))
         }
     }
 

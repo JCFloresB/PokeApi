@@ -60,7 +60,8 @@ class PokemonRemoteMediator @Inject constructor(
                     pokemonUrlImage = UrlUtils.getImageUrl(getComplementDataResponse.sprites),
                     pokemonHeight = getComplementDataResponse.height,
                     pokemonWeight = getComplementDataResponse.weight,
-                    pokemonTypeList = UrlUtils.getStringTypes(typeList)
+                    pokemonTypeList = UrlUtils.getStringTypes(typeList),
+                    isFavorite = false,
                 )
                 pokemonList.add(pokemonEntity)
             }

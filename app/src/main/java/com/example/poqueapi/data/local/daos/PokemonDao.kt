@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.poqueapi.data.local.entities.PokemonEntity
 import com.example.poqueapi.domain.model.Pokemon
 import com.example.poqueapi.utils.Constants
@@ -25,4 +26,7 @@ interface PokemonDao {
 
     @Query("SELECT * FROM pokemon")
     fun pagingSource(): PagingSource<Int, PokemonEntity>
+
+    @Query("UPDATE pokemon SET isFavorite = :isFavorite WHERE pokemonId = :id")
+    suspend fun markFavorites(id: Int, isFavorite: Boolean)
 }

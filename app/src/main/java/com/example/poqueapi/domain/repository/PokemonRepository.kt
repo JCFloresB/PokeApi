@@ -9,4 +9,6 @@ interface PokemonRepository {
     fun getPokemonList(): Flow<PagingData<Pokemon>>
 
     fun getPokemon(id: Int): Flow<Result<Pokemon>>
+
+    fun isFavoritePokemon(id: Int, isFavorite: Boolean): Flow<Result<Any>>
 }
