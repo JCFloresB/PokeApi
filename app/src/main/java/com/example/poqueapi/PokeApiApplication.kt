@@ -1,6 +1,8 @@
 package com.example.poqueapi
 
 import android.app.Application
+import com.google.firebase.Firebase
+import com.google.firebase.initialize
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -12,5 +14,8 @@ class PokeApiApplication: Application() {
         super.onCreate()
 
         Timber.plant(Timber.DebugTree())
+
+        // Inicializar Firebase
+        Firebase.initialize(this)
     }
 }

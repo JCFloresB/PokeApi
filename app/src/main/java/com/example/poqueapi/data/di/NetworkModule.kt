@@ -1,22 +1,16 @@
 package com.example.poqueapi.data.di
 
-import android.content.Context
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.room.Room
 import com.example.poqueapi.BuildConfig
 import com.example.poqueapi.data.local.PokemonDatabase
 import com.example.poqueapi.data.local.entities.PokemonEntity
 import com.example.poqueapi.data.remote.PokemonApi
 import com.example.poqueapi.data.remote.PokemonRemoteMediator
-import com.example.poqueapi.data.repository.PokemonRepositoryImp
-import com.example.poqueapi.domain.repository.PokemonRepository
 import com.example.poqueapi.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,27 +20,24 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DataModule {
+object NetworkModule {
+
     @Provides
     @Singleton
-    fun providePokemonDb(@ApplicationContext context: Context): PokemonDatabase {
-        return Room.databaseBuilder(
-            context,
-            PokemonDatabase::class.java,
-            Constants.DB_NAME,
-        ).fallbackToDestructiveMigration().build()
+    fun provideOkHttpClient(): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+            .build()
     }
 
     @Provides
     @Singleton
-    fun providePokemonApi(): PokemonApi {
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        val httpClient = OkHttpClient.Builder()
-        httpClient.addInterceptor(logging)
+    fun providePokemonApi(okHttpClient: OkHttpClient): PokemonApi {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
-//            .client(httpClient.build())
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PokemonApi::class.java)
@@ -67,20 +58,6 @@ class DataModule {
             pagingSourceFactory = {
                 pokemonDatabase.pokemonDao.pagingSource()
             }
-        )
-    }
-
-    @Provides
-    @Singleton
-    fun providePokemonRepository(
-        pokemonPager: Pager<Int, PokemonEntity>,
-        pokemonDatabase: PokemonDatabase,
-        pokemonApi: PokemonApi,
-    ): PokemonRepository {
-        return PokemonRepositoryImp(
-            pokemonPager = pokemonPager,
-            pokemonDatabase = pokemonDatabase,
-            pokemonApi = pokemonApi,
         )
     }
 }

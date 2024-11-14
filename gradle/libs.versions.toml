@@ -1,33 +1,57 @@
 [versions]
-com-google-dagger = "2.50"
-androidx-hilt-dagger = "1.2.0"
-agp = "8.3.1"
-converterGson = "2.9.0"
-gson = "2.10.1"
+#kotlin and build tools
 kotlin = "1.9.0"
+plugin-ksp-version = "1.9.0-1.0.12"
+
+#AndroidX
 coreKtx = "1.12.0"
+lifecycleRuntimeKtx = "2.7.0"
+activityCompose = "1.8.2"
+navigationCompose = "2.8.3"
+pagingRuntimeKtx = "3.2.0"
+roomVersion = "2.6.1"
+datastore = "1.0.0"
+
+#Compose
+composeBom = "2024.04.00"
+lifecycleRuntimeCompose = "2.7.0"
+composeMaterial = "1.5.4"
+
+#Networking
+retrofit = "2.9.0"
+coilVersion = "2.5.0"
+loggingInterceptor = "4.12.0"
+
+#Firebase
+firebase-bom = "32.7.0"
+google-services = "4.4.0"
+
+#Dependency injection
+androidx-hilt-dagger = "1.2.0"
+hilt-navigation-compose = "1.1.0"
+com-google-dagger = "2.50"
+
+#Testing
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-kotlinxSerializationJson = "1.5.0"
-lifecycleRuntimeKtx = "2.7.0"
-activityCompose = "1.8.2"
-composeBom = "2024.04.00"
-loggingInterceptor = "4.12.0"
-navigationCompose = "2.7.7"
-pagingRuntimeKtx = "3.2.0"
-retrofit = "2.9.0"
-roomVersion = "2.6.1"
+
+#Logging
 timber = "5.0.1"
-coilVersion = "2.5.0"
-plugin-ksp-version = "1.9.0-1.0.12"
-lifecycleRuntimeCompose = "2.7.0"
+
+agp = "8.3.1"
+converterGson = "2.9.0"
+gson = "2.10.1"
+kotlinxSerializationJson = "1.5.0"
+playServicesSafetynet = "18.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "composeMaterial" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingRuntimeKtx" }
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
+androidx-datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -69,7 +93,14 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilVersion"
 coil-compose-base = { module = "io.coil-kt:coil-compose-base", version.ref = "coilVersion" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coilVersion" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilVersion" }
+
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
+
+
+# Firebase
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-auth = { module = "com.google.firebase:firebase-auth-ktx" }
+play-services-safetynet = { group = "com.google.android.gms", name = "play-services-safetynet", version.ref = "playServicesSafetynet" }
 
 [bundles]
 compilers-kapt-hilt = [
@@ -83,7 +114,6 @@ compilers-kapt-room = [
 
 layer-ui = [
     "androidx-core-ktx",
-#    "androidx-lifecycle-runtime-ktx",
     "androidx-activity-compose",
     "androidx-navigation-compose",
     "androidx-ui",
@@ -112,4 +142,4 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "k
 com-google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "com-google-dagger" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "plugin-ksp-version" }
 org-jetbrains-kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-
+google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }

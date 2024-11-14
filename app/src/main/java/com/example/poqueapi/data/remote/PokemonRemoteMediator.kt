@@ -81,7 +81,6 @@ class PokemonRemoteMediator @Inject constructor(
             }
             Timber.d("Paginacion final pokemonListSize: ${pokemonList.size}, state page Size: ${state.config.pageSize}")
             MediatorResult.Success(nextOffsetResponse == 0)
-//            MediatorResult.Success(endOfPaginationReached = pokemonList.size == state.config.pageSize)
         } catch (e: Exception) {
             Timber.e("Error en paginación: ${e.message}")
             MediatorResult.Error(e)

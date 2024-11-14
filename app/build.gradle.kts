@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.com.google.devtools.ksp)
     alias(libs.plugins.com.google.dagger.hilt.android)
+    alias(libs.plugins.google.services)
 }
 
 val prop = Properties().apply {
@@ -76,6 +77,13 @@ dependencies {
 
     implementation(libs.bundles.layer.ui)
     implementation(platform(libs.androidx.compose.bom))
+
+    implementation(libs.androidx.datastore)
+    implementation(libs.compose.material.icons.extended)
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.safetynet)
 
     ksp(libs.bundles.compilers.kapt.hilt)
     ksp(libs.bundles.compilers.kapt.room)

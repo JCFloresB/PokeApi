@@ -6,7 +6,6 @@ import androidx.paging.map
 import com.example.poqueapi.data.local.PokemonDatabase
 import com.example.poqueapi.data.local.entities.PokemonEntity
 import com.example.poqueapi.data.mapper.toPokemon
-import com.example.poqueapi.data.mapper.toPokemonEntity
 import com.example.poqueapi.data.remote.PokemonApi
 import com.example.poqueapi.domain.model.Pokemon
 import com.example.poqueapi.domain.model.Result
